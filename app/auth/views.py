@@ -13,11 +13,14 @@ def login():
     if form.validate_on_submit():
         try:
             user = User.query.filter(User.username == form.username.data).first()
-            if user.verify_password(form.password.data):
-                login_user(user, form.rememberme.data)
-                return redirect(request.args.get('next') or url_for('main.index'))
+            if user:
+                if user.verify_password(form.password.data):
+                    login_user(user, form.rememberme.data)
+                    return redirect(request.args.get('next') or url_for('main.index'))
+                else:
+                    flash("用户名或密码错误")
             else:
-                flash('用户名或密码错误')
+                flash('用户不存在')
         except Exception as ex:
             logger.error("ex:{}".format(traceback.format_exc()))
             flash('用户名或密码错误')

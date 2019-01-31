@@ -11,6 +11,8 @@ from utils import model_util
 from app import db
 import inspect
 from flask_wtf import FlaskForm
+import os
+from app.model.servers import Server
 
 # 通用列表查询
 
@@ -59,7 +61,14 @@ def common_edit(DynamicModel, form, view):
             if request.method == 'POST':
                 if form.validate_on_submit():
                     for field in form:
-                        setattr(model, field.name, field.data)
+                        if field.type == 'FileField':
+                            file = request.files[field.name]
+                            if file.filename:
+                                file.save(os.path.join(config.read(
+                                    "UPLOAD_PATH"), file.filename))
+                                setattr(model, field.name, file.filename)
+                        else:
+                            setattr(model, field.name, field.data)
                     db.session.add(model)
                     db.session.commit()
                     flash('修改成功')
@@ -69,8 +78,18 @@ def common_edit(DynamicModel, form, view):
         # 新增
         if form.validate_on_submit():
             dict = model_util.get_model_colums_dict(DynamicModel)
-            fields = ",".join("{}='{}'".format(field.name, field.data)
-                              for field in form if field.name in dict.keys())
+            conditions = []
+            for field in form:
+                if field.name in dict.keys():
+                    if field.type == "FileField":
+                        file = request.files[field.name]
+                        if file.filename:
+                            file.save(os.path.join(config.read(
+                                        "UPLOAD_PATH"), file.filename))
+                            conditions.append("{}='{}'".format(field.name,file.filename))
+                    else:
+                        conditions.append("{}='{}'".format(field.name, field.data))
+            fields = ",".join(conditions)
             m = eval("{}({})".format(DynamicModel.__name__, fields), None, None)
             db.session.add(m)
             db.session.commit()
@@ -134,3 +153,9 @@ for name, cls in model_class.items():
         return common_edit(model_class.get(ep.split('edit')[0]), form_class.get(ep.split('edit')[0])(), '{}.html'.format(ep))
     func_eidt.__name__ = edit_method
     register_route("/{}".format(edit_method), ["GET", "POST"], func_eidt)
+
+@main.route('/term')
+@login_required
+def get_term():
+    id = request.args.get("id")
+    return render_template("term.html", server_id=id)

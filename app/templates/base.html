@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     {% block head %}{% endblock %}
-    <title>Web 管理平台 | {% block title %}标题{% endblock %}</title>
+    <title> Work Online | {% block title %}标题{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/ionicons/css/ionicons.min.css') }}">
@@ -15,20 +16,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
     {% block css %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/adminlte/css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/adminlte/css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/adminlte/css/skins/skin-purple.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <!--[if lt IE 9]>
     <script src="plugins/html5shiv.min.js"></script>
     <script src="plugins/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
     <!--头部-->
     <header class="main-header">
         <a href="{{ url_for('main.index') }}" class="logo">
             <span class="logo-mini"><b>N</b></span>
-            <span class="logo-lg"><b>Web管理平台</b></span>
+            <span class="logo-lg"><b>SpaceX</b></span>
         </a>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -81,28 +82,17 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-bug"></i>
-                        <span>XX管理</span>
+                        <i class="fa fa-windows"></i>
+                        <span>服务器管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ url_for('main.notifyedit') }}"><i class="fa fa-circle-o"></i> 编辑</a></li>
-                        <li><a href="{{ url_for('main.notifylist') }}"><i class="fa fa-circle-o"></i> 查询</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-send"></i>
-                        <span>XX管理</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ url_for('main.notifyedit') }}"><i class="fa fa-circle-o"></i> 编辑</a></li>
-                        <li><a href="{{ url_for('main.notifylist') }}"><i class="fa fa-circle-o"></i> 查询</a></li>
+                        <li><a href="{{ url_for('main.serveredit') }}"><i class="fa fa-circle-o"></i> 编辑</a></li>
+                        <li><a href="{{ url_for('main.serverlist') }}"><i class="fa fa-circle-o"></i> 查询</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-cog"></i>
                         <span>XX管理</span>
@@ -112,7 +102,7 @@
                         <li><a href="{{ url_for('main.notifyedit') }}"><i class="fa fa-circle-o"></i> 功能点</a></li>
                         <li><a href="{{ url_for('main.notifylist') }}"><i class="fa fa-circle-o"></i> 功能点</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </section>
     </aside>
@@ -131,7 +121,7 @@
         <div class="pull-right hidden-xs">
             <b>版本号</b> 1.0.0
         </div>
-        Copyright &copy; 2017 <a href="http://www.si-tech.com.cn">XXXX公司</a>
+        Copyright &copy; 2018 <a href="http://www.mixoo.cn">Mixoo</a>
     </footer>
     <!--模态窗口-->
     <div class="modal-wrapper">
